@@ -13,7 +13,7 @@ class ReceivePushSyncManager:NSObject {
     
     class func didReceivePushSync(notification: [NSObject :AnyObject],completionHandler:(Bool) -> Void) {
         // identityIdを取得
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.APNortheast1,
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
                                                                 identityPoolId:Constants.CognitoPoolID.rawValue)
         
         // Facebookのアクセストークンを取得する。
@@ -22,7 +22,7 @@ class ReceivePushSyncManager:NSObject {
             credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
         }
         
-        let configuration = AWSServiceConfiguration(region:.APNortheast1, credentialsProvider:credentialsProvider)
+        let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         credentialsProvider.getIdentityId().continueWithBlock { (AWSTask) -> AnyObject? in
             print(credentialsProvider.identityId)

@@ -22,12 +22,36 @@ class ViewController: UIViewController,FBSDKLoginButtonDelegate {
         // データをCognitoSyncから取得する
         let syncClient = AWSCognito.defaultCognito()
         let dataset = syncClient.openOrCreateDataset("myDataset")
+        
+        self.getDataText.addObserver(self, forKeyPath: "text", options: [.Old, .New], context: nil)
         self.getDataText.text = dataset.stringForKey("myKey")
         
         // 認証ユーザになるためのFacebookログインボタン
         self.loginButton.center = self.view.center
         self.loginButton.delegate = self
         self.view.addSubview(self.loginButton)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath != "text" {
+            return;
+        }
+        
+        let backgroundColor:String = (change!["new"])! as! String
+        switch backgroundColor {
+            case "blue":
+                self.view.backgroundColor = UIColor.blueColor()
+            case "green":
+                self.view.backgroundColor = UIColor.greenColor()
+            case "red":
+                self.view.backgroundColor = UIColor.redColor()
+            case "cyan":
+                self.view.backgroundColor = UIColor.cyanColor()
+            case "white":
+                self.view.backgroundColor = UIColor.whiteColor()
+            default: break
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
