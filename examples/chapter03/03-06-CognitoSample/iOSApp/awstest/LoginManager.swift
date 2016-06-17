@@ -17,8 +17,8 @@ public class LoginManager {
     
     init() {
         // Cognito利用の初期設定を実施しておく
-        mCredentialsProvider = AWSCognitoCredentialsProvider(regionType:.APNortheast1,
-                                                                identityPoolId:Constants.CognitoPoolID.rawValue)
+        mCredentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
+                                                             identityPoolId:Constants.CognitoPoolID.rawValue)
         
         // Facebookのアクセストークンを取得する。
         if let token = FBSDKAccessToken.currentAccessToken() {
@@ -26,7 +26,7 @@ public class LoginManager {
             mCredentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
         }
         
-        let configuration = AWSServiceConfiguration(region:.APNortheast1, credentialsProvider:mCredentialsProvider)
+        let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:mCredentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         print("Cognito LoginManager初期化完了")
     }
@@ -38,7 +38,7 @@ public class LoginManager {
             mCredentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
         }
         
-        let configuration = AWSServiceConfiguration(region:.APNortheast1, credentialsProvider:mCredentialsProvider)
+        let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:mCredentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         
         mCredentialsProvider.refresh().continueWithBlock  { (task: AWSTask!) -> AnyObject? in
