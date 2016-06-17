@@ -37,8 +37,10 @@ class ViewController: UIViewController,FBSDKLoginButtonDelegate {
             return;
         }
         
-        let backgroundColor:String = (change!["new"])! as! String
-        switch backgroundColor {
+        guard let backgrowndColor = change?[NSKeyValueChangeNewKey] as? String else {
+            return;
+        }
+        switch backgrowndColor {
             case "blue":
                 self.view.backgroundColor = UIColor.blueColor()
             case "green":
@@ -51,7 +53,6 @@ class ViewController: UIViewController,FBSDKLoginButtonDelegate {
                 self.view.backgroundColor = UIColor.whiteColor()
             default: break
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
